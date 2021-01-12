@@ -1,62 +1,15 @@
 import discord
-from discord.exe import commands
+from discord.ext import commands
+from discord.ext.commands import Bot
 
-import sqlite3
-from config import settings
+Bot = commands.Bot(command_prefix='.')
 
-import os
+@Bot.event
+async def on_ready():
+    print('Бот онлайн!')
 
-client = commands.Bot( command_prefix = settings '.')
+@Bot.command(pass_context = True)
+async def hello(ctx):
+    await ctx.send("Hello!!!")
 
-client.remove_command ('help')
-
-connetion = sqlite3.connect('server.db')
-cursor = connetion.cursor()
-
-
-@client.event
-asyns def  on_ready():
-    cursor.execute("""CREATE TABLE IF NOT EXISTS users (
-        name TEXT,
-        id INT,
-        cash BIGINT,
-        rep INT,
-        lvl INT
-    	)""")
-			connetion.comit()
-
-      for guild in client.guilds:
-      	  for member in guild.members
-      	      if cursor.execute(f"SELECT id FROM users WHERE id = {member,id}").fetchone() is None:
-                  cursor.execute(f"INSET INTO users VALUES ('{member}', {member.id}, 0, 0, 0)")
-                  connetion.comit()
-      	      	 else:
-								 	   pass
-
-			connetion.comit()
-			print('Bot connected')	
-
-
-@client.event
-asyns def on_member_join(member)
-    if cursor.execute(f"SELECT id FROM users WHERE id = {member,id}").fetchone() is None:
-        cursor.execute(f"INSET INTO users VALUES ('{member}', {member.id}, 0, 0, 0)")
-        connetion.comit()
-    else:
-      	pass
-
-
-@client.command(aliases = ['balance', 'bal'])
-asyns def __balance(ctx, member: discord.Member = None):
-		if member is None:
-				await ctx.send(embed = discord.Embed(
-						descriprion = f"""Баланс пользователя **{ctx.author}** состовляет **{cursor.execute("SELECT cash FROM users WHERE id = {}".format(ctx.author.id)).fetchone()[0]}:leaves:"""
-					))
-		else:
-				await ctx.send(embed = discord.Embed(
-						descriprion = f"""Баланс пользователя **{member}** состовляет **{cursor.execute("SELECT cash FROM users WHERE id = {}".format(member.id)).fetchone()[0]}:leaves:"""
-					))
-
-token = os.environ.get('TOKEN')
-
-bot.run(token)
+Bot.run("Nzk3ODU2NjY5Nzk4MjM2MTYx.X_sj7Q.1Q3vSGqQtAMpfLyai9SD0cLTE6M")
