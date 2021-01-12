@@ -4,6 +4,8 @@ from discord.exe import commands
 import sqlite3
 from config import settings
 
+import os
+
 client = commands.Bot( command_prefix = settings '.')
 
 client.remove_command ('help')
@@ -55,4 +57,6 @@ asyns def __balance(ctx, member: discord.Member = None):
 						descriprion = f"""Баланс пользователя **{member}** состовляет **{cursor.execute("SELECT cash FROM users WHERE id = {}".format(member.id)).fetchone()[0]}:leaves:"""
 					))
 
-client.ru, (settings['TOKEN'])
+token = os.environ.get('TOKEN')
+
+bot.run(str(token))
