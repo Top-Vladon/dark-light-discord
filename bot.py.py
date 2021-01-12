@@ -59,4 +59,4 @@ asyns def __balance(ctx, member: discord.Member = None):
 
 token = os.environ.get('TOKEN')
 
-bot.run(str(token))
+bot.run(token)
